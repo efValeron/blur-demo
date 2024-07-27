@@ -1,0 +1,103 @@
+'use client'
+
+import { Logo } from '@/components/icons/logo'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { ChartLine, House, LogOut, Menu, NotepadText, Wallet } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+export const Header = () => {
+  const pathname = usePathname()
+
+  const links = [
+    {
+      title: 'Home',
+      href: '/',
+      icon: <House className={'size-5'} />,
+    },
+    {
+      title: 'Rates',
+      href: '/rates',
+      icon: <ChartLine className={'size-5'} />,
+    },
+    {
+      title: 'Wallet',
+      href: '/wallet',
+      icon: <Wallet className={'size-5'} />,
+    },
+    {
+      title: 'Transactions',
+      href: '/transactions',
+      icon: <NotepadText className={'size-5'} />,
+    },
+  ]
+
+  return (
+    <header
+      className={
+        'sticky top-0 flex h-16 w-full items-center justify-between gap-4 bg-accent px-10 text-accent-foreground md:h-20 md:justify-normal md:px-14 lg:gap-8 lg:px-20'
+      }
+    >
+      <Link href={'/'} className={'flex items-center gap-2 text-lg font-semibold'}>
+        <Logo className={'h-6'} />
+        <span className={'sr-only'}>Blur Inc</span>
+      </Link>
+      <nav
+        className={'ml-6 hidden gap-4 md:flex md:flex-1 md:max-lg:mr-4 md:max-lg:justify-between'}
+      >
+        {links.map(({ title, href, icon }) => (
+          <>
+            <Link
+              key={href}
+              href={href}
+              className={`${
+                pathname == href ? 'text-accent-foreground' : 'text-accent-foreground/60'
+              } flex items-center gap-3 duration-150 hover:text-accent-foreground lg:px-4 lg:py-2 lg:text-lg`}
+            >
+              {icon}
+              <span>{title}</span>
+            </Link>
+          </>
+        ))}
+      </nav>
+      <Button
+        variant={'outline'}
+        className={'hidden bg-transparent font-medium md:flex lg:ml-auto lg:px-6'}
+      >
+        <LogOut className={'mr-2 size-4 stroke-[2.25px]'} /> Log out
+      </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant={'ghost'} size={'icon'} className={'shrink-0 md:hidden'}>
+            <Menu className={'size-8'} />
+            <span className={'sr-only'}>Toggle navigation menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side={'left'}>
+          <nav className={'grid gap-6 text-lg font-medium'}>
+            <Link href={'/'} className={'mb-4 flex items-center gap-2 text-lg font-semibold'}>
+              <Logo className={'h-6 fill-accent/85'} />
+              <span className={'sr-only'}>Blur Inc</span>
+            </Link>
+            {links.map(({ title, href, icon }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`${
+                  pathname == href ? 'text-foreground' : 'text-muted-foreground'
+                } flex items-center gap-3 duration-150 hover:text-foreground`}
+              >
+                {icon}
+                <span>{title}</span>
+              </Link>
+            ))}
+            <Button variant={'outline'} className={'mt-6 w-fit px-6 font-medium'}>
+              <LogOut className={'mr-2 size-4'} /> Log out
+            </Button>
+          </nav>
+        </SheetContent>
+      </Sheet>
+    </header>
+  )
+}
