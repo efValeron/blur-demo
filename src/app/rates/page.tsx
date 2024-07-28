@@ -1,7 +1,17 @@
+import { ExchangeRatesList } from '@/components/exchange-rates-list'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+
 export default function Rates() {
   return (
-    <main className={'flex h-screen justify-center'}>
-      <h1 className={'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'}>Rates</h1>
+    <main className={''}>
+      <Card className={'container mx-auto max-w-[800px]'}>
+        <CardHeader className={'text-2xl font-medium tracking-wide max-md:px-0 max-md:text-center'}>
+          Current Exchange Rates
+        </CardHeader>
+        <CardContent className={'min-h-[150px] max-md:px-0'}>
+          <ExchangeRatesList />
+        </CardContent>
+      </Card>
     </main>
   )
 }
