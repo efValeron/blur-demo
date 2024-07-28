@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className={'flex flex-col justify-center'}>
+    <main className={'flex flex-col'}>
       <LandingUsersCounter />
       <section className={'grid grid-cols-1 gap-2 md:grid-cols-2 md:px-6 xl:px-32'}>
         <article
