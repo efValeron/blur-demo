@@ -47,7 +47,7 @@ export const Header = () => {
   return (
     <header
       className={
-        'sticky top-0 flex h-16 w-full items-center justify-between gap-4 bg-accent px-10 text-accent-foreground md:h-20 md:justify-normal md:px-14 lg:gap-8 lg:px-20'
+        'sticky top-0 z-30 flex h-16 w-full items-center justify-between gap-4 bg-accent px-10 text-accent-foreground md:h-20 md:justify-normal md:px-14 lg:gap-8 lg:px-20'
       }
     >
       <Link href={'/'} className={'flex items-center gap-2 text-lg font-semibold'}>
@@ -61,7 +61,7 @@ export const Header = () => {
               key={href}
               href={href}
               className={`${
-                pathname == href ? 'text-accent-foreground' : 'text-accent-foreground/60'
+                pathname == href ? 'text-accent-foreground' : 'text-gray-400'
               } flex items-center gap-3 duration-150 hover:text-accent-foreground lg:px-4 lg:py-2 lg:text-lg`}
             >
               {icon}
@@ -79,26 +79,32 @@ export const Header = () => {
           <LogOut className={'mr-2 size-4 stroke-[2.25px]'} /> Log out
         </Button>
       ) : (
-        <>
-          <Button
-            asChild
-            variant={'outline'}
-            className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
-          >
-            <Link href={'/auth/login'}>
-              <LogIn className={'mr-2 size-4 stroke-[2.25px]'} /> Sign In
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant={'outline'}
-            className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
-          >
-            <Link href={'/auth/signup'}>
-              <UserPlus className={'mr-2 size-4 stroke-[2.25px]'} /> Sign Up
-            </Link>
-          </Button>
-        </>
+        pathname !== '/' && (
+          <>
+            {pathname !== '/auth/login' && (
+              <Button
+                asChild
+                variant={'outline'}
+                className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
+              >
+                <Link href={'/auth/login'}>
+                  <LogIn className={'mr-2 size-4 stroke-[2.25px]'} /> Sign In
+                </Link>
+              </Button>
+            )}
+            {pathname !== '/auth/signup' && (
+              <Button
+                asChild
+                variant={'outline'}
+                className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
+              >
+                <Link href={'/auth/signup'}>
+                  <UserPlus className={'mr-2 size-4 stroke-[2.25px]'} /> Sign Up
+                </Link>
+              </Button>
+            )}
+          </>
+        )
       )}
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetTrigger asChild>

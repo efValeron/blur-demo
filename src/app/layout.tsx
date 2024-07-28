@@ -34,10 +34,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={'en'}>
-      <body className={cn('flex min-h-screen flex-col font-sans antialiased', fontSans.variable)}>
+      <body
+        className={cn(
+          'grid min-h-screen grid-rows-[auto_1fr_auto] font-sans antialiased',
+          fontSans.variable
+        )}
+      >
         <StoreProvider>
           <Header />
-          <div className={'px-10 py-8 md:px-16 md:py-12'}>{children}</div>
+          <div className={'px-6 py-4 md:px-16 md:py-12'}>{children}</div>
+          <small className={'mb-2 text-center text-muted-foreground'}>
+            ©️ 2024 Blur. All Rights Reserved.
+          </small>
         </StoreProvider>
       </body>
     </html>
