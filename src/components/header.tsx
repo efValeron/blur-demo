@@ -56,18 +56,16 @@ export const Header = () => {
       </Link>
       <nav className={'ml-6 hidden gap-4 md:flex md:flex-1'}>
         {links.map(({ title, href, icon }) => (
-          <>
-            <Link
-              key={href}
-              href={href}
-              className={`${
-                pathname == href ? 'text-accent-foreground' : 'text-gray-400'
-              } flex items-center gap-3 duration-150 hover:text-accent-foreground lg:px-4 lg:py-2 lg:text-lg`}
-            >
-              {icon}
-              <span>{title}</span>
-            </Link>
-          </>
+          <Link
+            key={href}
+            href={href}
+            className={`${
+              pathname == href ? 'text-accent-foreground' : 'text-gray-400'
+            } flex items-center gap-3 duration-150 hover:text-accent-foreground lg:px-4 lg:py-2 lg:text-lg`}
+          >
+            {icon}
+            <span>{title}</span>
+          </Link>
         ))}
       </nav>
       {isAuthenticated ? (
