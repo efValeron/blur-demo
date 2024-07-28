@@ -33,6 +33,7 @@ export default function Home() {
         <div className={'grid place-items-center max-sm:-mx-6'}>
           <Image
             src={phoneVertical.src}
+            priority
             alt={'blur'}
             width={1500}
             height={1125}
@@ -40,6 +41,7 @@ export default function Home() {
           />
           <Image
             src={phoneHorizontal.src}
+            priority
             alt={'blur'}
             width={1500}
             height={1125}
