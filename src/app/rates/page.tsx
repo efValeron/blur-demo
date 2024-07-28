@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 export default function Rates() {
   return (
-    <main className={''}>
+    <main>
       <Card className={'container mx-auto max-w-[800px]'}>
         <CardHeader className={'text-2xl font-medium tracking-wide max-md:px-0 max-md:text-center'}>
           Current Exchange Rates
