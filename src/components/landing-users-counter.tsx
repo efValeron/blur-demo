@@ -4,13 +4,13 @@ import { useGetUsersCountQuery } from '@/app/api'
 import { Card, CardContent } from '@/components/ui/card'
 import NumberTicker from '@/components/ui/number-ticker'
 import { cn } from '@/lib/utils'
-import { dotPulse } from 'ldrs'
+import { Ping } from '@uiball/loaders'
 import { CircleUserRound } from 'lucide-react'
 
 export const LandingUsersCounter = () => {
   const { data: usersCount, isLoading } = useGetUsersCountQuery()
-
-  dotPulse.register()
+  // const isLoading = true
+  // const usersCount = 0
 
   return (
     <Card className={'py-2'}>
@@ -23,7 +23,7 @@ export const LandingUsersCounter = () => {
               { 'opacity-0': !isLoading, 'opacity-100': isLoading }
             )}
           >
-            <l-dot-pulse size={'43'} speed={'1.3'} color={'hsl(var(--card-foreground))'} />
+            <Ping size={35} speed={1.3} color={'hsl(var(--card-foreground))'} />
           </span>
           <span
             className={cn(
