@@ -1,14 +1,21 @@
 'use client'
 
+import { useState } from 'react'
+
 import { Logo } from '@/components/icons/logo'
 import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { ChartLine, House, LogOut, Menu, NotepadText, Wallet } from 'lucide-react'
+import useAuth from '@/lib/useAuth'
+import { ChartLine, House, LogIn, LogOut, Menu, NotepadText, UserPlus, Wallet } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export const Header = () => {
   const pathname = usePathname()
+  const { isAuthenticated, logout } = useAuth()
+
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
 
   const links = [
     {
@@ -21,16 +28,20 @@ export const Header = () => {
       href: '/rates',
       icon: <ChartLine className={'size-5'} />,
     },
-    {
-      title: 'Wallet',
-      href: '/wallet',
-      icon: <Wallet className={'size-5'} />,
-    },
-    {
-      title: 'Transactions',
-      href: '/transactions',
-      icon: <NotepadText className={'size-5'} />,
-    },
+    ...(isAuthenticated
+      ? [
+          {
+            title: 'Wallet',
+            href: '/wallet',
+            icon: <Wallet className={'size-5'} />,
+          },
+          {
+            title: 'Transactions',
+            href: '/transactions',
+            icon: <NotepadText className={'size-5'} />,
+          },
+        ]
+      : []),
   ]
 
   return (
@@ -43,9 +54,7 @@ export const Header = () => {
         <Logo className={'h-6'} />
         <span className={'sr-only'}>Blur Inc</span>
       </Link>
-      <nav
-        className={'ml-6 hidden gap-4 md:flex md:flex-1 md:max-lg:mr-4 md:max-lg:justify-between'}
-      >
+      <nav className={'ml-6 hidden gap-4 md:flex md:flex-1'}>
         {links.map(({ title, href, icon }) => (
           <>
             <Link
@@ -61,13 +70,37 @@ export const Header = () => {
           </>
         ))}
       </nav>
-      <Button
-        variant={'outline'}
-        className={'hidden bg-transparent font-medium md:flex lg:ml-auto lg:px-6'}
-      >
-        <LogOut className={'mr-2 size-4 stroke-[2.25px]'} /> Log out
-      </Button>
-      <Sheet>
+      {isAuthenticated ? (
+        <Button
+          variant={'outline'}
+          className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
+          onClick={logout}
+        >
+          <LogOut className={'mr-2 size-4 stroke-[2.25px]'} /> Log out
+        </Button>
+      ) : (
+        <>
+          <Button
+            asChild
+            variant={'outline'}
+            className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
+          >
+            <Link href={'/auth/login'}>
+              <LogIn className={'mr-2 size-4 stroke-[2.25px]'} /> Sign In
+            </Link>
+          </Button>
+          <Button
+            asChild
+            variant={'outline'}
+            className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
+          >
+            <Link href={'/auth/signup'}>
+              <UserPlus className={'mr-2 size-4 stroke-[2.25px]'} /> Sign Up
+            </Link>
+          </Button>
+        </>
+      )}
+      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetTrigger asChild>
           <Button variant={'ghost'} size={'icon'} className={'shrink-0 md:hidden'}>
             <Menu className={'size-8'} />
@@ -84,6 +117,7 @@ export const Header = () => {
               <Link
                 key={href}
                 href={href}
+                onClick={() => setIsSheetOpen(false)}
                 className={`${
                   pathname == href ? 'text-foreground' : 'text-muted-foreground'
                 } flex items-center gap-3 duration-150 hover:text-foreground`}
@@ -92,9 +126,42 @@ export const Header = () => {
                 <span>{title}</span>
               </Link>
             ))}
-            <Button variant={'outline'} className={'mt-6 w-fit px-6 font-medium'}>
-              <LogOut className={'mr-2 size-4'} /> Log out
-            </Button>
+            <Separator />
+            {isAuthenticated ? (
+              <Button
+                variant={'outline'}
+                onClick={() => {
+                  setIsSheetOpen(false)
+                  logout()
+                }}
+                className={'flex rounded-xl font-medium lg:px-6'}
+              >
+                <LogOut className={'mr-2 size-4'} /> Log out
+              </Button>
+            ) : (
+              <>
+                <Button
+                  asChild
+                  variant={'outline'}
+                  onClick={() => setIsSheetOpen(false)}
+                  className={'flex rounded-xl font-medium lg:px-6'}
+                >
+                  <Link href={'/auth/login'}>
+                    <LogIn className={'mr-2 size-4 stroke-[2.25px]'} /> Sign In
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant={'outline'}
+                  onClick={() => setIsSheetOpen(false)}
+                  className={'flex rounded-xl font-medium lg:px-6'}
+                >
+                  <Link href={'/auth/signup'}>
+                    <UserPlus className={'mr-2 size-4 stroke-[2.25px]'} /> Sign Up
+                  </Link>
+                </Button>
+              </>
+            )}
           </nav>
         </SheetContent>
       </Sheet>

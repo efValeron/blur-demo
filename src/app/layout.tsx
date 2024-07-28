@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 
 import { Header } from '@/components/header'
+import { StoreProvider } from '@/components/store-provider'
 import { cn } from '@/lib/utils'
 import { Inter as FontSans } from 'next/font/google'
 
@@ -33,14 +34,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={'en'}>
-      <body
-        className={cn(
-          'flex min-h-screen flex-col bg-background font-sans antialiased',
-          fontSans.variable
-        )}
-      >
-        <Header />
-        <div className={'px-10 py-8 md:px-16 md:py-12'}>{children}</div>
+      <body className={cn('flex min-h-screen flex-col font-sans antialiased', fontSans.variable)}>
+        <StoreProvider>
+          <Header />
+          <div className={'px-10 py-8 md:px-16 md:py-12'}>{children}</div>
+        </StoreProvider>
       </body>
     </html>
   )
