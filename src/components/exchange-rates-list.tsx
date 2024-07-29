@@ -1,71 +1,18 @@
 'use client'
 
 import { useGetExchangeRatesQuery } from '@/app/rates/api'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { ExchangeRate } from '@/types/instances'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 import { Ping } from '@uiball/loaders'
 
-const exchangeRates: ExchangeRate[] = [
-  {
-    id: 1,
-    currency: 'Solana',
-    rateToUsd: 1.18,
-    rateToKzt: 505.5,
-    timestamp: '2024-07-28T10:00:00Z',
-  },
-  {
-    id: 2,
-    currency: 'Ethereum',
-    rateToUsd: 1.38,
-    rateToKzt: 590.0,
-    timestamp: '2024-07-28T10:00:00Z',
-  },
-  {
-    id: 3,
-    currency: 'JPY',
-    rateToUsd: 0.0091,
-    rateToKzt: 3.89,
-    timestamp: '2024-07-28T10:00:00Z',
-  },
-  {
-    id: 4,
-    currency: 'CNY',
-    rateToUsd: 0.15,
-    rateToKzt: 64.5,
-    timestamp: '2024-07-28T10:00:00Z',
-  },
-  {
-    id: 5,
-    currency: 'RUB',
-    rateToUsd: 0.013,
-    rateToKzt: 5.6,
-    timestamp: '2024-07-28T10:00:00Z',
-  },
-  {
-    id: 6,
-    currency: 'AUD',
-    rateToUsd: 0.74,
-    rateToKzt: 315.8,
-    timestamp: '2024-07-28T10:00:00Z',
-  },
-  {
-    id: 7,
-    currency: 'CAD',
-    rateToUsd: 0.79,
-    rateToKzt: 337.6,
-    timestamp: '2024-07-28T10:00:00Z',
-  },
-  {
-    id: 8,
-    currency: 'CHF',
-    rateToUsd: 1.09,
-    rateToKzt: 464.4,
-    timestamp: '2024-07-28T10:00:00Z',
-  },
-]
-
 export const ExchangeRatesList = () => {
-  const { data, isLoading, isError } = useGetExchangeRatesQuery()
+  const { data: exchangeRates, isLoading, isError } = useGetExchangeRatesQuery()
 
   return (
     <>
@@ -89,17 +36,27 @@ export const ExchangeRatesList = () => {
             </TableRow>
           </TableHeader>
           <TableBody className={'text-base md:text-lg'}>
-            {exchangeRates.map(rate => (
-              <TableRow key={rate.id} className={'hover:bg-card'}>
-                <TableHead className={'w-[100px] text-card-foreground'}>{rate.currency}</TableHead>
-                <TableHead className={'text-center text-card-foreground'}>
-                  {rate.rateToUsd}
-                </TableHead>
-                <TableHead className={'text-center text-card-foreground'}>
-                  {rate.rateToKzt}
-                </TableHead>
+            {exchangeRates.length ? (
+              exchangeRates.map(rate => (
+                <TableRow key={rate.id} className={'hover:bg-card'}>
+                  <TableHead className={'w-[100px] text-card-foreground'}>
+                    {rate.currency}
+                  </TableHead>
+                  <TableHead className={'text-center text-card-foreground'}>
+                    {rate.rateToUsd}
+                  </TableHead>
+                  <TableHead className={'text-center text-card-foreground'}>
+                    {rate.rateToKzt}
+                  </TableHead>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} className={'h-24 text-center'}>
+                  No results.
+                </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       )}
