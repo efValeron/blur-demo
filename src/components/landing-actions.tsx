@@ -15,7 +15,7 @@ export const LandingActions = () => {
         size={'lg'}
         className={'w-2/3 rounded-2xl text-lg md:w-5/12'}
       >
-        <Link href={isAuthenticated ? '/transactions' : '/auth/login'}>
+        <Link href={isAuthenticated ? '/rates' : '/auth/login'}>
           {isAuthenticated ? 'Check rates' : 'Sign In'}
         </Link>
       </Button>
@@ -25,7 +25,7 @@ export const LandingActions = () => {
         size={'lg'}
         className={'w-2/3 rounded-2xl text-lg md:w-5/12'}
       >
-        <Link href={isAuthenticated ? '/exchange' : '/auth/signup'}>
+        <Link href={isAuthenticated ? '/transactions' : '/auth/signup'}>
           {isAuthenticated ? 'Exchange' : 'Sign Up'}
         </Link>
       </Button>
