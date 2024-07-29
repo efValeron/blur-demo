@@ -14,10 +14,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { getErrorMessage } from '@/lib/errorHandler'
+import useAuth from '@/lib/useAuth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 
 const SignupSchema = z.object({
@@ -30,7 +30,7 @@ const SignupSchema = z.object({
 export type SignupFields = z.infer<typeof SignupSchema>
 
 export default function Signup() {
-  const router = useRouter()
+  const { setUser } = useAuth()
   const [signup, { isLoading, isError, error, data: signupData }] = useSignupMutation()
 
   const form = useForm<SignupFields>({
@@ -46,7 +46,8 @@ export default function Signup() {
   const onSubmit = (data: SignupFields) => {
     signup(data)
       .unwrap()
-      .then(() => {
+      .then(res => {
+        setUser(res.accessToken)
         window.location.replace('/wallet')
       })
   }

@@ -14,10 +14,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { getErrorMessage } from '@/lib/errorHandler'
+import useAuth from '@/lib/useAuth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 
 const loginSchema = z.object({
@@ -28,7 +28,7 @@ const loginSchema = z.object({
 export type LoginFields = z.infer<typeof loginSchema>
 
 export default function Login() {
-  const router = useRouter()
+  const { setUser } = useAuth()
   const [login, { isLoading, isError, error }] = useLoginMutation()
 
   const form = useForm<LoginFields>({
@@ -44,7 +44,8 @@ export default function Login() {
   const onSubmit = (data: LoginFields) => {
     login(data)
       .unwrap()
-      .then(() => {
+      .then(res => {
+        setUser(res.accessToken)
         window.location.replace('/wallet')
       })
   }

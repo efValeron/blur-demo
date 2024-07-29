@@ -2,16 +2,16 @@
 
 import { ReactNode, useEffect } from 'react'
 
-import { tokenStorage } from '@/lib/tockenStorage'
+import { userStorage } from '@/lib/userStorage'
 import { useRouter } from 'next/navigation'
 
 export const AuthCheck = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
 
   useEffect(() => {
-    const accessToken = tokenStorage.getToken()
+    const user = userStorage.getUser()
 
-    if (!accessToken) {
+    if (!user) {
       router.replace('/auth/login')
     }
   }, [router])
