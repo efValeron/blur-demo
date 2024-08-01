@@ -35,14 +35,14 @@ export const ExchangeRatesList = () => {
       {!isLoading && exchangeRates && (
         <Table>
           <TableHeader>
-            <TableRow className={'font-medium hover:bg-card md:text-lg'}>
+            <TableRow className={'font-medium md:text-lg'}>
               <TableHead className={'w-4/12 text-card-foreground/70 md:w-5/12'}>Currency</TableHead>
               <TableHead className={'text-center text-card-foreground/70'}>To USD</TableHead>
               <TableHead className={'text-center text-card-foreground/70'}>To KZT</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className={'text-base md:text-lg'}>
-            <TableRow className={'hover:bg-card'}>
+            <TableRow>
               <TableCell className={'flex items-center gap-4 text-card-foreground'}>
                 <Solana className={'size-10'} />{' '}
                 <div className={'grid'}>
@@ -58,7 +58,7 @@ export const ExchangeRatesList = () => {
               </TableCell>
             </TableRow>
 
-            <TableRow className={'hover:bg-card'}>
+            <TableRow>
               <TableCell className={'flex items-center gap-4 text-card-foreground'}>
                 <Ethereum className={'size-10'} />{' '}
                 <div className={'grid'}>
@@ -76,7 +76,7 @@ export const ExchangeRatesList = () => {
               </TableCell>
             </TableRow>
 
-            <TableRow className={'hover:bg-card'}>
+            <TableRow>
               <TableCell className={'flex items-center gap-4 text-card-foreground'}>
                 <Tether className={'size-10'} />{' '}
                 <div className={'grid'}>
@@ -92,7 +92,7 @@ export const ExchangeRatesList = () => {
               </TableCell>
             </TableRow>
 
-            <TableRow className={'hover:bg-card'}>
+            <TableRow>
               <TableCell className={'flex items-center gap-4 text-card-foreground'}>
                 <Bitcoin className={'size-10'} />{' '}
                 <div className={'grid'}>
@@ -108,7 +108,7 @@ export const ExchangeRatesList = () => {
               </TableCell>
             </TableRow>
 
-            <TableRow className={'hover:bg-card'}>
+            <TableRow>
               <TableCell className={'flex items-center gap-4 text-card-foreground'}>
                 <Ripple className={'size-10'} />{' '}
                 <div className={'grid'}>
@@ -124,7 +124,7 @@ export const ExchangeRatesList = () => {
               </TableCell>
             </TableRow>
 
-            <TableRow className={'hover:bg-card'}>
+            <TableRow>
               <TableCell className={'flex items-center gap-4 text-card-foreground'}>
                 <BinanceCoin className={'size-10'} />{' '}
                 <div className={'grid'}>
