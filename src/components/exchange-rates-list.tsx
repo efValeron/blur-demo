@@ -1,6 +1,12 @@
 'use client'
 
 import { useGetExchangeRatesQuery } from '@/app/rates/api'
+import { BinanceCoin } from '@/components/icons/binance-coin'
+import { Bitcoin } from '@/components/icons/bitcoin'
+import { Ethereum } from '@/components/icons/ethereum'
+import { Ripple } from '@/components/icons/ripple'
+import { Solana } from '@/components/icons/solana'
+import { Tether } from '@/components/icons/tether'
 import {
   Table,
   TableBody,
@@ -36,27 +42,105 @@ export const ExchangeRatesList = () => {
             </TableRow>
           </TableHeader>
           <TableBody className={'text-base md:text-lg'}>
-            {exchangeRates.length ? (
-              exchangeRates.map(rate => (
-                <TableRow key={rate.id} className={'hover:bg-card'}>
-                  <TableHead className={'w-[100px] text-card-foreground'}>
-                    {rate.currency}
-                  </TableHead>
-                  <TableHead className={'text-center text-card-foreground'}>
-                    {rate.rateToUsd}
-                  </TableHead>
-                  <TableHead className={'text-center text-card-foreground'}>
-                    {rate.rateToKzt}
-                  </TableHead>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={3} className={'h-24 text-center'}>
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
+            <TableRow className={'hover:bg-card'}>
+              <TableCell className={'flex items-center gap-4 text-card-foreground'}>
+                <Solana className={'size-10'} />{' '}
+                <div className={'grid'}>
+                  <span className={'text-nowrap text-xl font-semibold tracking-wide'}>Solana</span>
+                  <span className={'text-xs'}>SOL</span>
+                </div>
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.solana_to_usd.toFixed(2))}
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.solana_to_kzt.toFixed(2))}
+              </TableCell>
+            </TableRow>
+
+            <TableRow className={'hover:bg-card'}>
+              <TableCell className={'flex items-center gap-4 text-card-foreground'}>
+                <Ethereum className={'size-10'} />{' '}
+                <div className={'grid'}>
+                  <span className={'text-nowrap text-xl font-semibold tracking-wide'}>
+                    Ethereum
+                  </span>
+                  <span className={'text-xs'}>ETH</span>
+                </div>
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.ethereum_to_usd.toFixed(2))}
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.ethereum_to_kzt.toFixed(2))}
+              </TableCell>
+            </TableRow>
+
+            <TableRow className={'hover:bg-card'}>
+              <TableCell className={'flex items-center gap-4 text-card-foreground'}>
+                <Tether className={'size-10'} />{' '}
+                <div className={'grid'}>
+                  <span className={'text-nowrap text-xl font-semibold tracking-wide'}>Tether</span>
+                  <span className={'text-xs'}>USDT</span>
+                </div>
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.tether_to_usd.toFixed(2))}
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.tether_to_kzt.toFixed(2))}
+              </TableCell>
+            </TableRow>
+
+            <TableRow className={'hover:bg-card'}>
+              <TableCell className={'flex items-center gap-4 text-card-foreground'}>
+                <Bitcoin className={'size-10'} />{' '}
+                <div className={'grid'}>
+                  <span className={'text-nowrap text-xl font-semibold tracking-wide'}>Bitcoin</span>
+                  <span className={'text-xs'}>BTC</span>
+                </div>
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.bitcoin_to_usd.toFixed(2))}
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.bitcoin_to_kzt.toFixed(2))}
+              </TableCell>
+            </TableRow>
+
+            <TableRow className={'hover:bg-card'}>
+              <TableCell className={'flex items-center gap-4 text-card-foreground'}>
+                <Ripple className={'size-10'} />{' '}
+                <div className={'grid'}>
+                  <span className={'text-nowrap text-xl font-semibold tracking-wide'}>Ripple</span>
+                  <span className={'text-xs'}>XRP</span>
+                </div>
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.ripple_to_usd.toFixed(2))}
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.ripple_to_kzt.toFixed(2))}
+              </TableCell>
+            </TableRow>
+
+            <TableRow className={'hover:bg-card'}>
+              <TableCell className={'flex items-center gap-4 text-card-foreground'}>
+                <BinanceCoin className={'size-10'} />{' '}
+                <div className={'grid'}>
+                  <span className={'text-nowrap text-xl font-semibold tracking-wide'}>
+                    Binance Coin
+                  </span>
+                  <span className={'text-xs'}>BNB</span>
+                </div>
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.binancecoin_to_usd.toFixed(2))}
+              </TableCell>
+              <TableCell className={'text-center text-card-foreground'}>
+                {parseFloat(exchangeRates.binancecoin_to_kzt.toFixed(2))}
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       )}

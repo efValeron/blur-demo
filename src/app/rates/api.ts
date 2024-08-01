@@ -5,7 +5,7 @@ const homeApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getExchangeRates: build.query<GetExchangeRates, void>({
       query: () => ({
-        url: '/api/exchange-rates',
+        url: '/api/exchange-rates/current',
         method: 'GET',
       }),
     }),
