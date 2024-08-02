@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const protectedRoutes = ['/wallet', '/transactions']
+const protectedRoutes = [
+  '/wallet',
+  '/transactions',
+  '/transactions/direct',
+  '/transactions/qr-gen',
+  '/transactions/qr-scan',
+  '/transactions/history',
+  '/transactions/card',
+]
 
 export default function middleware(req: NextRequest) {
   const accessToken = req.cookies.get('accessToken')

@@ -1,11 +1,20 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import useAuth from '@/lib/useAuth'
+import { User } from '@/types/instances'
 
 export const WalletSection = () => {
   const { getUser } = useAuth()
-  const user = getUser()
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    const userData = getUser()
+
+    setUser(userData)
+  }, [])
 
   return (
     <Card className={'container mx-auto max-w-[800px] max-md:px-0.5'}>

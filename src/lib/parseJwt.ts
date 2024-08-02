@@ -1,5 +1,5 @@
 export const parseJwt = (token: string) => {
-  if (!token) {
+  if (!token || typeof window === 'undefined') {
     return
   }
   const base64Url = token.split('.')[1]
