@@ -30,7 +30,7 @@ const SignupSchema = z.object({
 export type SignupFields = z.infer<typeof SignupSchema>
 
 export default function Signup() {
-  const { setUser } = useAuth()
+  const { setAccessToken } = useAuth()
   const [signup, { isLoading, isError, error, data: signupData }] = useSignupMutation()
 
   const form = useForm<SignupFields>({
@@ -47,7 +47,7 @@ export default function Signup() {
     signup(data)
       .unwrap()
       .then(res => {
-        setUser(res.accessToken)
+        setAccessToken(res.accessToken)
         window.location.replace('/wallet')
       })
   }

@@ -77,32 +77,30 @@ export const Header = () => {
           <LogOut className={'mr-2 size-4 stroke-[2.25px]'} /> Log out
         </Button>
       ) : (
-        pathname !== '/' && (
-          <>
-            {pathname !== '/auth/login' && (
-              <Button
-                asChild
-                variant={'outline'}
-                className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
-              >
-                <Link href={'/auth/login'}>
-                  <LogIn className={'mr-2 size-4 stroke-[2.25px]'} /> Sign In
-                </Link>
-              </Button>
-            )}
-            {pathname !== '/auth/signup' && (
-              <Button
-                asChild
-                variant={'outline'}
-                className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
-              >
-                <Link href={'/auth/signup'}>
-                  <UserPlus className={'mr-2 size-4 stroke-[2.25px]'} /> Sign Up
-                </Link>
-              </Button>
-            )}
-          </>
-        )
+        <>
+          {pathname !== '/auth/login' && (
+            <Button
+              asChild
+              variant={'outline'}
+              className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
+            >
+              <Link href={'/auth/login'}>
+                <LogIn className={'mr-2 size-4 stroke-[2.25px]'} /> Sign In
+              </Link>
+            </Button>
+          )}
+          {pathname !== '/auth/signup' && (
+            <Button
+              asChild
+              variant={'outline'}
+              className={'hidden rounded-xl font-medium md:flex lg:ml-auto lg:px-6'}
+            >
+              <Link href={'/auth/signup'}>
+                <UserPlus className={'mr-2 size-4 stroke-[2.25px]'} /> Sign Up
+              </Link>
+            </Button>
+          )}
+        </>
       )}
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetTrigger asChild>

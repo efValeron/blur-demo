@@ -6,6 +6,7 @@ import { Header } from '@/components/header'
 import { StoreProvider } from '@/components/store-provider'
 import { cn } from '@/lib/utils'
 import { Inter as FontSans } from 'next/font/google'
+import { CookiesProvider } from 'next-client-cookies/server'
 
 import './globals.css'
 
@@ -41,13 +42,15 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <StoreProvider>
-          <Header />
-          <div className={'px-6 py-4 md:px-16 md:py-12'}>{children}</div>
-          <small className={'mb-2 text-center text-muted-foreground'}>
-            ©️ 2024 Blur. All Rights Reserved.
-          </small>
-        </StoreProvider>
+        <CookiesProvider>
+          <StoreProvider>
+            <Header />
+            <div className={'overflow-x-hidden px-6 py-4 md:px-16 md:py-12'}>{children}</div>
+            <small className={'mb-2 text-center text-muted-foreground'}>
+              ©️ 2024 Blur. All Rights Reserved.
+            </small>
+          </StoreProvider>
+        </CookiesProvider>
       </body>
     </html>
   )

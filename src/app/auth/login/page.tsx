@@ -28,7 +28,7 @@ const loginSchema = z.object({
 export type LoginFields = z.infer<typeof loginSchema>
 
 export default function Login() {
-  const { setUser } = useAuth()
+  const { setAccessToken } = useAuth()
   const [login, { isLoading, isError, error }] = useLoginMutation()
 
   const form = useForm<LoginFields>({
@@ -45,7 +45,7 @@ export default function Login() {
     login(data)
       .unwrap()
       .then(res => {
-        setUser(res.accessToken)
+        setAccessToken(res.accessToken)
         window.location.replace('/wallet')
       })
   }

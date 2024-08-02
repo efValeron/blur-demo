@@ -1,21 +1,51 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import {
+  BaseQueryFn,
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from '@reduxjs/toolkit/query/react'
+import Cookies from 'js-cookie'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://139.59.106.250:8080/',
+  // baseUrl: 'https://dummyjson.com',
   credentials: 'include',
-  // prepareHeaders: headers => {
-  //   const token = tokenStorage.getToken()
-  //
-  //   if (token) {
-  //     headers.set('Authorization', `Bearer ${token}`)
-  //   }
-  //
-  //   return headers
-  // },
+  prepareHeaders: headers => {
+    const accessToken = window.localStorage.getItem('accessToken')
+
+    if (accessToken) {
+      headers.set('Authorization', `Bearer ${accessToken}`)
+    }
+
+    return headers
+  },
 })
 
+const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args,
+  api,
+  extraOptions
+) => {
+  const logout = () => {
+    localStorage.removeItem('accessToken')
+    Cookies.remove('accessToken')
+    window.location.reload()
+
+    return
+  }
+
+  const result = await baseQuery(args, api, extraOptions)
+
+  if (result.error && result.error.status === 401) {
+    logout()
+  }
+
+  return result
+}
+
 export const baseApi = createApi({
-  baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
   reducerPath: 'baseApi',
 })

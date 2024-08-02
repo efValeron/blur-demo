@@ -1,32 +1,43 @@
-import { useEffect, useState } from 'react'
-
 import { parseJwt } from '@/lib/parseJwt'
-import { userStorage } from '@/lib/userStorage'
-import { useRouter } from 'next/navigation'
+import { User } from '@/types/instances'
+import { useCookies } from 'next-client-cookies'
 
 const useAuth = () => {
-  const router = useRouter()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const cookies = useCookies()
+  const isClient = typeof window !== 'undefined'
 
-  useEffect(() => {
-    const accessToken = userStorage.getUser()
+  const accessTokenCookie = cookies.get('accessToken')
+  const accessTokenLocalStorage = isClient ? localStorage.getItem('accessToken') : null
+  const isAuthenticated = !!(accessTokenCookie || accessTokenLocalStorage)
 
-    setIsAuthenticated(!!accessToken)
-  }, [])
+  const setAccessToken = (accessToken: string) => {
+    if (isClient) {
+      window.localStorage.setItem('accessToken', accessToken)
+    }
+    cookies.set('accessToken', accessToken, { expires: 60 * 60 * 24 * 30 })
+  }
 
-  const setUser = (accessToken: string) => {
+  const getUser = () => {
+    const accessToken = cookies.get('accessToken')
+
+    if (!accessToken) {
+      return null
+    }
+
     const user = parseJwt(accessToken)
 
-    userStorage.setUser(JSON.stringify(user))
+    return user ? (user as User) : null
   }
 
   const logout = () => {
-    userStorage.removeUser()
-    setIsAuthenticated(false)
+    if (isClient) {
+      window.localStorage.removeItem('accessToken')
+    }
+    cookies.remove('accessToken')
     window.location.reload()
   }
 
-  return { isAuthenticated, logout, setUser }
+  return { isAuthenticated, logout, setAccessToken, getUser }
 }
 
 export default useAuth
