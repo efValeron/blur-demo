@@ -1,9 +1,12 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import { useGetUserCurrenciesQuery } from '@/app/wallet/api'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import useAuth from '@/lib/useAuth'
+import { User } from '@/types/instances'
 
 export const BalanceSection = ({
   currencies,
@@ -11,13 +14,20 @@ export const BalanceSection = ({
   currencies: { value: string; name: string; abbreviation: string }[]
 }) => {
   const { getUser } = useAuth()
-  const user = getUser()
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    setUser(getUser())
+  }, [])
 
   const {
     data: userCurrencies,
     isLoading,
+    status,
     isError,
-  } = useGetUserCurrenciesQuery(user!.preferred_username, { skip: !user?.preferred_username })
+  } = useGetUserCurrenciesQuery(user ? user.preferred_username : '', {
+    skip: !user?.preferred_username,
+  })
 
   return (
     <Card className={'container mx-auto max-w-[800px] max-md:px-0.5'}>
@@ -37,7 +47,7 @@ export const BalanceSection = ({
                       'w-10 py-2 text-base font-medium text-card-foreground/70 sm:text-right'
                     }
                   >
-                    {isLoading ? (
+                    {isLoading || status === 'uninitialized' ? (
                       <div
                         className={'m-1 h-5 w-10 animate-pulse rounded-md bg-card-foreground/25'}
                       />
@@ -46,7 +56,7 @@ export const BalanceSection = ({
                     )}
                   </TableCell>
                   <TableCell className={'hidden w-2/3 py-2 text-lg sm:table-cell'}>
-                    {isLoading ? (
+                    {isLoading || status === 'uninitialized' ? (
                       <div
                         className={'m-1 h-5 w-full animate-pulse rounded-md bg-card-foreground/25'}
                       />
@@ -57,7 +67,7 @@ export const BalanceSection = ({
                   <TableCell
                     className={'flex items-center justify-end py-2 text-lg sm:justify-center'}
                   >
-                    {isLoading ? (
+                    {isLoading || status === 'uninitialized' ? (
                       <div
                         className={'m-1 h-5 w-full animate-pulse rounded-md bg-card-foreground/25'}
                       />
