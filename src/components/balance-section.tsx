@@ -5,14 +5,11 @@ import { useEffect, useState } from 'react'
 import { useGetUserCurrenciesQuery } from '@/app/wallet/api'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
+import { CURRENCIES } from '@/lib/constans'
 import useAuth from '@/lib/useAuth'
 import { User } from '@/types/instances'
 
-export const BalanceSection = ({
-  currencies,
-}: {
-  currencies: { value: string; name: string; abbreviation: string }[]
-}) => {
+export const BalanceSection = () => {
   const { getUser } = useAuth()
   const [user, setUser] = useState<User | null>(null)
 
@@ -40,7 +37,7 @@ export const BalanceSection = ({
             {isError ? (
               <TableRow className={'text-center'}>Error while fetching balance</TableRow>
             ) : (
-              currencies.map((currency, index) => (
+              CURRENCIES.map((currency, index) => (
                 <TableRow key={index}>
                   <TableCell
                     className={
