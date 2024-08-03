@@ -49,3 +49,18 @@ export type GetUserCurrencies = {
   usd: number
   kzt: number
 }
+
+
+export interface TransactionRequest {
+  fromWalletId: string;
+  toWalletId: string;
+  amount: number;
+  currency: string;
+  transactionType: 'Direct_Transfer_To_Wallet';
+}
+
+export interface TransactionResponse {
+  transactionId: string;
+  status: string;
+
+}
