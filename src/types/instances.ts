@@ -22,7 +22,7 @@ export type TransactionType =
   | 'Direct_Transfer_To_Wallet'
   | 'QR_Transfer'
   | 'Transfer_Request'
-  | 'Bank_Card_Transfer '
+  | 'Bank_Card_Transfer'
 
 export type Card = {
   id: number
@@ -30,4 +30,12 @@ export type Card = {
   cardHolderName: string
   expiryDate: string
   cvv: string
+}
+
+export type Transaction = {
+  fromWalletId: number
+  toWalletId: number
+  amount: number
+  currency: string
+  transactionType: string
 }
