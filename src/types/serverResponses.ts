@@ -1,3 +1,5 @@
+import { Card } from '@/types/instances'
+
 export type LoginResponse = {
   accessToken: string
 }
@@ -49,3 +51,5 @@ export type GetUserCurrencies = {
   usd: number
   kzt: number
 }
+
+export type GetCard = Card
