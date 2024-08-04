@@ -23,3 +23,11 @@ export type TransactionType =
   | 'QR_Transfer'
   | 'Transfer_Request'
   | 'Bank_Card_Transfer '
+
+export type Card = {
+  id: number
+  cardNumber: string
+  cardHolderName: string
+  expiryDate: string
+  cvv: string
+}
