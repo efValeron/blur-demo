@@ -1,4 +1,4 @@
-import { Card } from '@/types/instances'
+import { Card, Transaction } from '@/types/instances'
 
 export type LoginResponse = {
   accessToken: string
@@ -53,3 +53,5 @@ export type GetUserCurrencies = {
 }
 
 export type GetCard = Card
+
+export type GetHistory = Transaction[]
