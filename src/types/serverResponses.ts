@@ -52,6 +52,7 @@ export type GetUserCurrencies = {
 
 
 export interface TransactionRequest {
+  toUsername: string;
   fromWalletId: string;
   toWalletId: string;
   amount: number;
