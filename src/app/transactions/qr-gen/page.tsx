@@ -26,25 +26,18 @@ import {
 } from '@/components/ui/select'
 import { CURRENCIES } from '@/lib/constans'
 import useAuth from '@/lib/useAuth'
-import { User } from '@/types/instances'
+import { TransactionData, TransactionType, User } from '@/types/instances'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useWindowSize } from '@uidotdev/usehooks'
 import { QRCodeSVG } from 'qrcode.react'
 import { z } from 'zod'
 
 const generateQRSchema = z.object({
-  currency: z.string().min(1),
-  amount: z.preprocess(val => Number(val), z.number().min(1)),
+  currency: z.string().min(1, { message: 'Please select a currency' }),
+  amount: z.preprocess(val => Number(val), z.number().positive()),
 })
 
 export type GenerateQRFields = z.infer<typeof generateQRSchema>
-
-export type TransactionData = {
-  currency: string
-  amount: number
-  toUsername: string
-  transactionType: string
-}
 
 export default function Transactions() {
   const { getUser } = useAuth()
@@ -83,7 +76,7 @@ export default function Transactions() {
     setTransactionData({
       ...data,
       toUsername: user.preferred_username,
-      transactionType: 'QR_Transfer',
+      transactionType: 'QR_Transfer' as TransactionType,
     })
     setModalOpen(true)
   }
@@ -174,6 +167,7 @@ export default function Transactions() {
                         onFocus={e => e.target.select()}
                         type={'number'}
                         min={0}
+                        step={'0.00001'}
                         placeholder={'Amount'}
                       />
                     </FormControl>
@@ -185,15 +179,6 @@ export default function Transactions() {
               <Button className={'w-full'} disabled={!user || !isValid}>
                 Generate QR-code
               </Button>
-              {/*{isError && (*/}
-              {/*  <div*/}
-              {/*    className={*/}
-              {/*      'rounded-md border border-destructive/60 bg-destructive/10 py-2 text-center text-sm text-destructive'*/}
-              {/*    }*/}
-              {/*  >*/}
-              {/*    {getErrorMessage(error)}*/}
-              {/*  </div>*/}
-              {/*)}*/}
             </form>
           </Form>
         </CardContent>

@@ -30,9 +30,9 @@ import { Loader2 } from 'lucide-react'
 import { z } from 'zod'
 
 const exchangeSchema = z.object({
-  fromCurrency: z.string().min(1),
-  toCurrency: z.string().min(1),
-  amount: z.preprocess(val => Number(val), z.number().min(1)),
+  fromCurrency: z.string().min(1, { message: 'Please select a currency' }),
+  toCurrency: z.string().min(1, { message: 'Please select a currency' }),
+  amount: z.preprocess(val => Number(val), z.number().positive()),
 })
 
 export type ExchangeFields = z.infer<typeof exchangeSchema>
@@ -164,6 +164,7 @@ export const ExchangeCurrencySection = () => {
                       onFocus={e => e.target.select()}
                       type={'number'}
                       min={0}
+                      step={'0.00001'}
                       placeholder={'Amount'}
                     />
                   </FormControl>
