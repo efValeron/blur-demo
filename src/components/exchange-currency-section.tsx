@@ -23,24 +23,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { CURRENCIES } from '@/lib/constans'
 import { getErrorMessage } from '@/lib/errorHandler'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import { z } from 'zod'
 
 const exchangeSchema = z.object({
-  fromCurrency: z.string().min(1),
-  toCurrency: z.string().min(1),
-  amount: z.preprocess(val => Number(val), z.number().min(0)),
+  fromCurrency: z.string().min(1, { message: 'Please select a currency' }),
+  toCurrency: z.string().min(1, { message: 'Please select a currency' }),
+  amount: z.preprocess(val => Number(val), z.number().positive()),
 })
 
 export type ExchangeFields = z.infer<typeof exchangeSchema>
 
-export const ExchangeCurrencySection = ({
-  currencies,
-}: {
-  currencies: { value: string; name: string; abbreviation: string }[]
-}) => {
+export const ExchangeCurrencySection = () => {
   const [exchangeCurrencies, { isLoading, isError, error }] = useExchangeCurrenciesMutation()
   const [fromCurrency, setFromCurrency] = useState('')
   const [toCurrency, setToCurrency] = useState('')
@@ -58,7 +55,6 @@ export const ExchangeCurrencySection = ({
     control,
     handleSubmit,
     formState: { isValid },
-    watch,
   } = form
 
   const onSubmit = (data: ExchangeFields) => {
@@ -100,7 +96,7 @@ export const ExchangeCurrencySection = ({
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            {currencies.map(currency => (
+                            {CURRENCIES.map(currency => (
                               <SelectItem
                                 key={currency.value}
                                 className={'text-card-foreground'}
@@ -137,7 +133,7 @@ export const ExchangeCurrencySection = ({
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            {currencies.map(currency => (
+                            {CURRENCIES.map(currency => (
                               <SelectItem
                                 key={currency.value}
                                 className={'text-card-foreground'}
@@ -163,7 +159,14 @@ export const ExchangeCurrencySection = ({
                 <FormItem>
                   <FormLabel className={'text-lg'}>Amount</FormLabel>
                   <FormControl>
-                    <Input {...field} type={'number'} min={0} placeholder={'Amount'} />
+                    <Input
+                      {...field}
+                      onFocus={e => e.target.select()}
+                      type={'number'}
+                      min={0}
+                      step={'0.00001'}
+                      placeholder={'Amount'}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
