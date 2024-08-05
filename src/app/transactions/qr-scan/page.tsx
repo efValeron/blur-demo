@@ -109,22 +109,6 @@ export default function Transactions() {
     }
   }, [showCamera])
 
-  // useEffect(() => {
-  //   let errorTimeoutId: NodeJS.Timeout | null = null
-  //
-  //   if (showCamera && scanError) {
-  //     errorTimeoutId = setTimeout(() => {
-  //       setScanError(true)
-  //     }, 5000)
-  //   }
-  //
-  //   return () => {
-  //     if (errorTimeoutId) {
-  //       clearTimeout(errorTimeoutId)
-  //     }
-  //   }
-  // }, [showCamera])
-
   return (
     <main className={'flex flex-col items-center gap-12'}>
       <Card className={'w-full max-w-md'}>
