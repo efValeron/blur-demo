@@ -50,11 +50,11 @@ export default function Transactions() {
             </TableHeader>
             {data.map((transaction, index) => (
               <TableRow key={index} className={'font-medium sm:text-lg'}>
-                <TableCell className={'max-sm:p-2 sm:px-6'}>
+                <TableCell className={'text-base max-sm:p-2 sm:px-6'}>
                   {getTransactionTypeName(transaction)}
                 </TableCell>
                 <TableCell className={'text-center max-sm:p-2'}>{transaction.amount}</TableCell>
-                <TableCell className={'text-center max-sm:p-2'}>
+                <TableCell className={'text-center text-base max-sm:p-2'}>
                   {transaction.currency.toUpperCase()}
                 </TableCell>
               </TableRow>
