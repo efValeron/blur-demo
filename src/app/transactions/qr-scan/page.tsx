@@ -156,7 +156,7 @@ export default function Transactions() {
                 audio={false}
                 ref={webcamRef}
                 screenshotFormat={'image/jpeg'}
-                videoConstraints={{ facingMode: 'user' }}
+                videoConstraints={{ facingMode: 'environment' }}
               />
             )}
           </div>
