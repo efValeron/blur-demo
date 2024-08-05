@@ -5,10 +5,10 @@ const protectedRoutes = [
   '/transactions',
   '/transactions/direct',
   '/transactions/qr-gen',
-  '/transactions/qr-scan',
+  // '/transactions/qr-scan',
   '/transactions/history',
   '/transactions/card',
-  '/transactions/confirm',
+  // '/transactions/confirm',
 ]
 
 export default function middleware(req: NextRequest) {
