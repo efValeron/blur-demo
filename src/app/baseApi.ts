@@ -8,7 +8,7 @@ import {
 import Cookies from 'js-cookie'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://139.59.106.250:8080/',
+  baseUrl: 'https://crypto-demo-back-984b9f939635.herokuapp.com/',
   // baseUrl: 'https://dummyjson.com',
   credentials: 'include',
   prepareHeaders: headers => {
