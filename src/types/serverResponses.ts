@@ -9,6 +9,7 @@ export type SignupResponse = {
 }
 
 export type GetExchangeRates = {
+  [key: string]: number
   kzt_to_solana: number
   bitcoin_to_kzt: number
   usd_to_ethereum: number
