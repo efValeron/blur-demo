@@ -26,23 +26,11 @@ export const WalletSection = () => {
               'line-clamp-1 flex text-2xl font-medium tracking-wide max-md:px-0 max-md:text-center md:text-3xl'
             }
           >
-            Welcome back,{' '}
-            {user ? (
-              user.preferred_username
-            ) : (
-              <span className={'m-1 h-5 w-64 animate-pulse rounded-md bg-card-foreground/25'} />
-            )}
-            !
+            Welcome back, {user?.preferred_username}!
           </span>
-          <span className={'flex items-center text-lg'}>
-            {user ? (
-              user.email
-            ) : (
-              <div className={'m-1 h-5 w-64 animate-pulse rounded-md bg-card-foreground/25'} />
-            )}
-          </span>
+          <span className={'flex items-center text-lg'}>{user?.email}</span>
         </div>
-        <BankCard className={'justify-self-center max-sm:row-start-1 max-sm:-m-4'} />
+        <BankCard className={'w-full justify-self-center max-sm:row-start-1 max-sm:-m-4'} />
       </CardContent>
     </Card>
   )
