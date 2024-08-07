@@ -20,9 +20,11 @@ export const WalletSection = () => {
   return (
     <Card className={'container mx-auto max-w-[800px] max-md:px-0.5'}>
       <CardContent className={'grid grid-cols-1 gap-8 p-6 sm:grid-cols-2 sm:gap-4'}>
-        <div>
+        <div className={'flex flex-col gap-2 py-4'}>
           <span
-            className={'flex text-2xl font-medium tracking-wide max-md:px-0 max-md:text-center'}
+            className={
+              'line-clamp-1 flex text-2xl font-medium tracking-wide max-md:px-0 max-md:text-center md:text-3xl'
+            }
           >
             Welcome back,{' '}
             {user ? (
@@ -39,10 +41,8 @@ export const WalletSection = () => {
               <div className={'m-1 h-5 w-64 animate-pulse rounded-md bg-card-foreground/25'} />
             )}
           </span>
-          {/*<Button variant={'linkHover2'} size={'lg'}>Transfer to user</Button>*/}
-          {/*<Button variant={'linkHover2'} size={'lg'}>Transfer to user</Button>*/}
         </div>
-        <BankCard className={'max-sm:row-start-1 max-sm:-m-4'} />
+        <BankCard className={'justify-self-center max-sm:row-start-1 max-sm:-m-4'} />
       </CardContent>
     </Card>
   )
