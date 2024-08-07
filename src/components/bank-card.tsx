@@ -4,11 +4,11 @@ import { useGetCardQuery } from '@/app/transactions/card/api'
 import { Logo } from '@/components/icons/logo'
 import { Card } from '@/components/ui/card'
 
-export const BankCard = () => {
+export const BankCard = ({ className }: { className?: string }) => {
   const { data, isLoading, isError } = useGetCardQuery()
 
   return (
-    <>
+    <div className={className}>
       {isError ? (
         <h1 className={'scroll-m-20 text-3xl font-medium lg:text-4xl'}>
           Error while fetching card data
@@ -57,6 +57,6 @@ export const BankCard = () => {
           </div>
         </Card>
       )}
-    </>
+    </div>
   )
 }
