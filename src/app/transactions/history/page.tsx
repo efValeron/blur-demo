@@ -3,6 +3,7 @@
 import { useGetHistoryQuery } from '@/app/transactions/history/api'
 import { Card } from '@/components/ui/card'
 import { Table, TableCell, TableHeader, TableRow } from '@/components/ui/table'
+import { CURRENCIES } from '@/lib/constans'
 import { Transaction, TransactionType } from '@/types/instances'
 import { Ping } from '@uiball/loaders'
 
@@ -55,7 +56,8 @@ export default function Transactions() {
                 </TableCell>
                 <TableCell className={'text-center max-sm:p-2'}>{transaction.amount}</TableCell>
                 <TableCell className={'text-center text-base max-sm:p-2'}>
-                  {transaction.currency.toUpperCase()}
+                  {CURRENCIES.find(currency => currency.value === transaction.currency)
+                    ?.abbreviation || transaction.currency}
                 </TableCell>
               </TableRow>
             ))}
