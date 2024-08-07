@@ -38,7 +38,7 @@ export default function Login() {
   const {
     control,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = form
 
   const onSubmit = (data: LoginFields) => {
@@ -53,7 +53,7 @@ export default function Login() {
   return (
     <main className={'grid justify-items-center'}>
       <div className={'w-72'}>
-        <h1 className={'mb-6 text-center text-2xl font-bold'}>Create Account</h1>
+        <h1 className={'mb-6 text-center text-2xl font-bold'}>Sign In</h1>
         <Form {...form}>
           <form className={'space-y-4'} onSubmit={handleSubmit(onSubmit)}>
             <FormField
