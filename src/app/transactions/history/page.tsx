@@ -51,11 +51,13 @@ export default function Transactions() {
             </TableHeader>
             {data.map((transaction, index) => (
               <TableRow key={index} className={'font-medium sm:text-lg'}>
-                <TableCell className={'text-base max-sm:p-2 sm:px-6'}>
+                <TableCell className={'max-sm:p-2 sm:px-6 sm:text-base'}>
                   {getTransactionTypeName(transaction)}
                 </TableCell>
-                <TableCell className={'text-center max-sm:p-2'}>{transaction.amount}</TableCell>
-                <TableCell className={'text-center text-base max-sm:p-2'}>
+                <TableCell className={'text-center max-sm:p-2 max-sm:text-base'}>
+                  {transaction.amount}
+                </TableCell>
+                <TableCell className={'text-center max-sm:p-2 sm:text-base'}>
                   {CURRENCIES.find(currency => currency.value === transaction.currency)
                     ?.abbreviation || transaction.currency}
                 </TableCell>
